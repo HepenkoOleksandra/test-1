@@ -1,32 +1,51 @@
+import { backenadAPI } from "./js/api";
+
 const categoriesList = document.querySelector('.categories-list');
 console.log(categoriesList);
 
+const bestSellers = await backenadAPI.getBestSellers();
+console.log(bestSellers);
 
-
-function getGallery() {
-    
-    return fetch('https://books-backend.p.goit.global/books/top-books')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.status);
-            }
-            return response.json();
-        });
-}
-getGallery().then((data) => {
-    console.log(data);
-
-    const categories1 = data.map(({books, list_name}) => {
-    return `<li class="categories-item">
-      <ul class="books-list">${list_name}</ul>
-    </li>`
+function renderBooks(elements) {
+    console.log(elements);
+    const markup = elements.map(({ books, list_name }) => {
+        `<li class="categories-item">${list_name}<ul class="categories-books-list">`
+       return books.map(({ book_image, title, author }) => {
+          
+        `<li class="categories-item">
+             <img class="categories-img" src='${book_image}' alt="" />
+             <h3 class="categories-book-title">${title}</h3>
+              <p class="categories-book-author">${author}</p>
+            </li></ul></li>`
+        })
     }).join('\n');
+
+    console.log(markup);
+    categoriesList.insertAdjacentHTML('beforeend', markup);
+}
+
+renderBooks(bestSellers)
+
+      
+
+
+
+
+// getGallery().then((data) => {
+//     console.log(data);
+
+//     const categories1 = data.map(({books, list_name}) => {
+//     return `<li class="categories-item">
+//       <ul class="books-list">${list_name}</ul>
+//     </li>`
+//     }).join('\n');
     
-    categoriesList.insertAdjacentHTML('beforeend', categories1);
+//     categoriesList.insertAdjacentHTML('beforeend', categories1);
 
-    const booksList = document.querySelectorAll('.books-list');
-    console.log(booksList);
+//     const booksList = document.querySelectorAll('.books-list');
+//     console.log(booksList);
 
+// =================================================
     // const categories = data.map(({books, list_name}) => { 
     //     return books.map((book) => {
     //         return `<li class="categories-item">
@@ -52,17 +71,14 @@ getGallery().then((data) => {
     // }).join('\n');
             
             
-        //     `<li class="categories-item">${list_name}
-        // <img class="categories-img" src='${ book.book_image }' alt="" />
-        //      <h3 class="categories-book-title">${book.title}</h3>
-        //       <p class="categories-book-author">${book.author}</p>
-        //     </li>`
+      
         
     
-    // categoriesList.insertAdjacentHTML('beforeend', categories);
-    
-    console.log(categories1);
-}).catch((error) => { console.log(error); })
+   
+//   ==================================  
+//     console.log(categories1);
+// }).catch((error) => { console.log(error); })
+// ============================================
 
 // function galleryTemplate(element) {
 //     `<li class="categories-item">
