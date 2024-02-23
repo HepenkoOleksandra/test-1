@@ -5,7 +5,7 @@ const categoriesList = document.querySelector('.categories-list');
 const bestSellers = await backendAPI.getBestSellers();
 
 function renderBooks(elements) {
-    console.log(elements);
+   
     const markup = elements.map(({ books, list_name }) => {
        return `<li class="categories-item">${list_name}
         <ul class="categories-books-list"> 
