@@ -1,9 +1,8 @@
-import { backenadAPI } from "./js/api";
+import { backendAPI } from "./js/api";
 
 const categoriesList = document.querySelector('.categories-list');
 
-const bestSellers = await backenadAPI.getBestSellers();
-console.log(bestSellers);
+const bestSellers = await backendAPI.getBestSellers();
 
 function renderBooks(elements) {
     console.log(elements);
