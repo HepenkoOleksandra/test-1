@@ -1,7 +1,6 @@
 import { backenadAPI } from "./js/api";
 
 const categoriesList = document.querySelector('.categories-list');
-console.log(categoriesList);
 
 const bestSellers = await backenadAPI.getBestSellers();
 console.log(bestSellers);
