@@ -27,3 +27,27 @@ export const renderBestBooks = async () => {
 }
 
 renderBestBooks();
+
+// ==================================================================
+
+const bestsellersBtn = document.querySelector('.bestsellers-btn');
+const categoryTitle = document.querySelector('.bestsellers-category-title');
+
+bestsellersBtn.addEventListener('click', async (e) => {
+    const category = categoryTitle.textContent;  
+  const result = await backendAPI.getSelectedCategory(category);
+  renderCategoryPage(result, category);
+});
+
+// =================================================================
+
+const bestsellersList = document.querySelector('.bestsellers-list');
+
+bestsellersList.addEventListener('click', async (e) => {
+     e.preventDefault();
+
+     if (e.target.nodeName !== 'IMG') {
+    return;
+    }
+    // викликаємо модальне вікно
+});
