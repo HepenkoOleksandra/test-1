@@ -1,4 +1,5 @@
 import backendAPI from "./Services/api";
+import { renderCategoryPage } from "./categorypage";
 
 export const renderBestBooks = async () => {
     const bestBooksList = document.querySelector('.bestsellers-list');
@@ -9,45 +10,57 @@ export const renderBestBooks = async () => {
              <h2 class="bestsellers-category-title">${list_name}</h2>
                 <ul class="bestsellers-books-list"> 
                     ${books.map(({ book_image, title, author }) => { // if(){}else{}
-                        return `<li class="bestsellers-books-item">
+                return `<li class="bestsellers-books-item">
                             <img class="bestsellers-books-img" src='${book_image}' alt="" />
                             <h3 class="bestsellers-book-title">${title}</h3>
                             <p class="bestsellers-book-author">${author}</p>
                         </li>`}).join('\n')}
                 </ul>
                 <button class="bestsellers-btn" type="button">See more</button>
-            </li>`;        
+            </li>`;
         }).join('\n');
-        
+
         bestBooksList.insertAdjacentHTML('beforeend', markup);
 
     } catch (error) {
         console.error("Error fetching best sellers:", error);
     }
+
+    const bestsellersBtn = document.querySelector('.bestsellers-btn');
+    console.log(bestsellersBtn);
+    const categoryTitle = document.querySelector('.bestsellers-category-title');
+    console.log(categoryTitle);
+    const container = document.querySelector('.bestsellers-container');
+
+    bestsellersBtn.addEventListener('click', async (e) => {
+        const category = categoryTitle.textContent;
+        console.log(category);
+
+        const result = await backendAPI.getSelectedCategory(category);
+        console.log(result);
+        // if(category === ) {
+
+        // }
+        container.innerHTML = '';
+        renderCategoryPage(result, category);
+    });
 }
 
 renderBestBooks();
 
 // ==================================================================
 
-const bestsellersBtn = document.querySelector('.bestsellers-btn');
-const categoryTitle = document.querySelector('.bestsellers-category-title');
 
-bestsellersBtn.addEventListener('click', async (e) => {
-    const category = categoryTitle.textContent;  
-  const result = await backendAPI.getSelectedCategory(category);
-  renderCategoryPage(result, category);
-});
 
-// =================================================================
+// // =================================================================
 
-const bestsellersList = document.querySelector('.bestsellers-list');
+// const bestsellersList = document.querySelector('.bestsellers-list');
 
-bestsellersList.addEventListener('click', async (e) => {
-     e.preventDefault();
+// bestsellersList.addEventListener('click', async (e) => {
+//      e.preventDefault();
 
-     if (e.target.nodeName !== 'IMG') {
-    return;
-    }
-    // викликаємо модальне вікно
-});
+//      if (e.target.nodeName !== 'IMG') {
+//     return;
+//     }
+//     // викликаємо модальне вікно
+// });
