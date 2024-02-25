@@ -13,7 +13,8 @@
 
 @media screen and (min-width: 1440px) {
     .bestsellers-container {
-        padding-top: 40px;
+        padding-top: 0;
+        /* padding-top: 40px; */
         padding-bottom: 72px;
         max-width: 996px;
     }
