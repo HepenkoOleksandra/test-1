@@ -12,19 +12,24 @@ export function renderBestBooks(bestBooks) {
   renderTitle('.bestsellers-container', 'Best Sellers Books');
   bestBooksContainer.insertAdjacentHTML('beforeend', `<ul class="bestsellers-list"></ul>`);
   const bestBooksList = document.querySelector('.bestsellers-list');
-  
-    const markup = bestBooks.map(({ books, list_name }) => {
-      return `
-            <li class="bestsellers-item">
-             <h2 class="bestsellers-category-title">${list_name}</h2>
-                <ul class="bestsellers-books-list"> 
-                    ${books.map(({ book_image, title, author }) => {return bookTemplate({ book_image, title, author })
-                        }).join('\n')}
-                </ul>
-                <button class="bestsellers-btn" type="button" data-category="${list_name}">See more</button>
-            </li>`;        
-        }).join('\n');
-
+  // ========pull
+    const markup = bestBooks
+    .map(({ books, list_name }) => {
+      return `<li class="bestsellers-item">
+      <h2 class="bestsellers-category-title">${list_name}</h2>
+      <ul class="bestsellers-books-list">${
+        books.map(({ title, author, book_image, _id }) => {
+          if (books.length === 0) {
+            return `<p class="category-empty">Sorry, no books were found for the given category!</p>`;
+          }else{
+            return bookTemplate({ title, author, book_image, _id });
+          }
+        }).join('\n')}
+        </ul>
+        <button class="bestsellers-btn" type="button" data-category="${list_name}">See more</button>
+      </li>`;
+    }).join('\n');
+// =========================
   bestBooksList.insertAdjacentHTML('beforeend', markup);
 
   const bestsellersBtn = document.querySelector('.bestsellers-list');
